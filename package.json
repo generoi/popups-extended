@@ -1,0 +1,13 @@
+{
+  "name": "popups-extended",
+  "version": "1.0.0",
+  "main": "popups-extended.php",
+  "repository": "https://github.com/generoi/popups-extended",
+  "author": "Oskar Schöldström <public@oxy.fi>",
+  "license": "MIT",
+  "dependencies": {
+    "Bounceback": "https://github.com/AMKohn/bounceback.git",
+    "imagesloaded": "^4.1.2",
+    "js-cookie": "^2.1.4"
+  }
+}
