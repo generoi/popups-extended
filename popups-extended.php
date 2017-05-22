@@ -394,6 +394,14 @@ class PopupsExtended
             });
         </script><?php
     }
+
+    public function activate() {
+        if (!is_plugin_active('popups/popups.php') && current_user_can('activate_plugins')) {
+            wp_die('Sorry, but this plugin requires the Popups plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
+        }
+    }
 }
 
-add_action('plugins_loaded', array(PopupsExtended::get_instance(), 'init'), 11);
+register_activation_hook(__FILE__, [PopupsExtended::get_instance(), 'activate']);
+
+add_action('plugins_loaded', [PopupsExtended::get_instance(), 'init'], 11);
