@@ -1,8 +1,97 @@
-.spu-box.reveal { outline: none; }
-.spu-box.reveal--centered { top: 50% !important; transform: translateY(-50%); }
-.spu-box.reveal--top { top: 0 !important; }
-.spu-box.reveal--bottom { top: auto !important; bottom: 0; }
-.spu-box.reveal--top-left { top: 0 !important; left: 0 !important; }
-.spu-box.reveal--top-right { top: 0 !important; left: auto !important; right: 0; }
-.spu-box.reveal--bottom-left { top: auto !important; left: 0 !important; }
-.spu-box.reveal--bottom-right { top: auto !important; left: auto !important; right: 0; }
+.spu-box {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.spu-box.reveal {
+  outline: none;
+}
+
+.spu-box.reveal--centered {
+  top: 50% !important;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.spu-box.reveal--top {
+  top: 0 !important;
+}
+
+.spu-box.reveal--bottom {
+  top: auto !important;
+  bottom: 0;
+}
+
+.spu-box.reveal--top-left {
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.spu-box.reveal--top-right {
+  top: 0 !important;
+  left: auto !important;
+  right: 0;
+}
+
+.spu-box.reveal--bottom-left {
+  top: auto !important;
+  left: 0 !important;
+}
+
+.spu-box.reveal--bottom-right {
+  top: auto !important;
+  left: auto !important;
+  right: 0;
+}
+
+.spu-box.reveal.full {
+  top: 0 !important;
+  -webkit-transform: translateY(0);
+      -ms-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.spu-box.reveal.dark:before, .spu-box.reveal.light:before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.spu-box.reveal.light:before {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.spu-box.reveal.dark {
+  color: #fff;
+}
+
+.spu-box.reveal.dark .close-button, .spu-box.reveal.dark label {
+  color: inherit;
+}
+
+.spu-box.reveal.dark:before {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.spu-box[aria-hidden="false"] {
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+}

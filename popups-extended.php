@@ -38,23 +38,43 @@ class PopupsExtended
         // Remove core actions.
         remove_action('init', [$spu, 'register_spu_ajax'], 11);
         remove_action('wp_footer', [$spu, 'print_boxes']);
-
         // Add our own actions using our own template.
+        add_action('init', [$this, 'register_ajax'], 11);
         if (empty($this->spu_settings['ajax_mode'])) {
-            add_action('init', [$this, 'print_boxes']);
+            add_action('wp_footer', [$this, 'print_boxes']);
         }
-        add_action('wp_footer', [$this, 'register_ajax'], 11);
 
+        // Admin
         add_action('admin_head', [$this, 'admin_head']);
         add_action('admin_footer', [$this, 'admin_footer']);
         add_action('do_meta_boxes', [$this, 'hide_meta_boxes']);
+
+        // TinyMCE
+        add_filter('mce_external_plugins', [$this, 'add_tinymce_plugin']);
+        add_filter('mce_buttons', [$this, 'add_tinymce_buttons']);
+
+        // Assets.
         add_action('wp_enqueue_scripts', [$this, 'register_scripts'], 11);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts'], 11);
 
+        // Modifications.
         add_filter('spu/metaboxes/default_options', [$this, 'metabox_default_options']);
         add_filter('spu/metaboxes/positions', [$this, 'metabox_positions']);
         add_filter('spu/metaboxes/trigger_options', [$this, 'metabox_trigger_options']);
-        add_filter('spu/metaboxes/before_display_options', [$this, 'metabox_extra']);
+        add_filter('spu/metaboxes/before_display_options', [$this, 'metabox_extra_before']);
+        add_filter('spu/metaboxes/after_display_options', [$this, 'metabox_extra_after']);
+    }
+
+    public function add_tinymce_plugin($plugins) {
+        $current_screen = get_current_screen();
+        if ($current_screen->post_type == 'spucpt') {
+            $plugins['popups_extended'] = plugins_url('js/tinymce.js', __FILE__);
+        }
+        return $plugins;
+    }
+    public function add_tinymce_buttons($buttons) {
+        array_push($buttons, '|', 'popups_extended_convert_button', 'popups_extended_close_button');
+        return $buttons;
     }
 
     public function register_scripts() {
@@ -160,12 +180,37 @@ class PopupsExtended
         }
     }
 
-    public function metabox_extra($opts) {
+    public function metabox_extra_after($opts) {
+        $is_genero_analytics_active = is_plugin_active('wp-genero-analytics/genero-analytics.php');
+        ?>
+        <?php if ($is_genero_analytics_active): ?>
+            <tr valign="top">
+                <th><label for="spu_event_category"><?php _e('Analytics Event Category', 'popups-extended'); ?></label></th>
+                <td>
+                    <input id="spu_event_category" name="spu[event_category]" class="widefat" value="<?php echo $opts['event_category']; ?>">
+                </td>
+                <td colspan="2"></td>
+            </tr>
+            <tr valign="top">
+                <th><label for="spu_event_label"><?php _e('Analytics Event Label', 'popups-extended'); ?></label></th>
+                <td>
+                    <input id="spu_event_label" name="spu[event_label]" class="widefat" value="<?php echo $opts['event_label']; ?>">
+                </td>
+                <td colspan="2"></td>
+            </tr>
+        <?php endif; ?>
+        <?php
+    }
+
+    public function metabox_extra_before($opts) {
         // Media Uploader
         wp_enqueue_media();
 
         $types = apply_filters('popups-extended/types', []);
-        $themes = apply_filters('popups-extended/themes', []);
+        $themes = apply_filters('popups-extended/themes', [
+            'dark' => __('Dark', 'popups-extended'),
+            'liht' => __('Light', 'popups-extended'),
+        ]);
         $sizes = apply_filters('popups-extended/sizes', [
             '' => __('Default', 'popups-extended'),
             'small' => __('Small', 'popups-extended'),
@@ -271,6 +316,8 @@ class PopupsExtended
         $defaults['overlay'] = 1;
         $defaults['close_on_click'] = 1;
         $defaults['background_image'] = '';
+        $defaults['event_category'] = '';
+        $defaults['event_label'] = '';
         // Changes to defaults.
         $defaults['css']['bgopacity'] = '1';
         return $defaults;
@@ -287,23 +334,35 @@ class PopupsExtended
         remove_meta_box('spu-links', 'spucpt', 'side');
     }
 
+    public static function isPostPage() {
+        $current_screen = get_current_screen();
+        if ($current_screen->post_type == 'spucpt' && $current_screen->base == 'post') {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Hide unnecessary options that we cannot completely unhook.
      */
     public function admin_head() {
-        $current_screen = get_current_screen();
-        if ($current_screen->post_type == 'spucpt') {
-            echo '<style>
-                tr.powered_link { display: none; }
-                #spu-appearance { display: none; }
-            </style>';
+        if (!self::isPostPage()) {
+            return;
         }
+        echo '<style>
+            tr.powered_link,
+            .spu-border-width, .spu-text-color, .spu-box-width,
+            .spu-border-color, .spu-bg-opacity { display: none; }
+        </style>';
     }
 
     /**
      * Media Uploader.
      */
     public function admin_footer() {
+        if (!self::isPostPage()) {
+            return;
+        }
         ?><script type='text/javascript'>
             jQuery(document).ready(function() {
                 function media_upload(button_class) {

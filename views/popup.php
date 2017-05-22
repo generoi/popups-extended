@@ -1,3 +1,6 @@
+<?php if (!empty($options['css']['custom_css'])): ?>
+  <style><?php echo $options['css']['custom_css']; ?></style>
+<?php endif; ?>
 <div
   class="
     spu-box
@@ -6,7 +9,7 @@
     <?php echo !empty($options['css']['position']) ? 'reveal--' . $options['css']['position'] : ''; ?>
     <?php echo !empty($options['size']) ? $options['size'] : ''; ?>
     <?php echo !empty($options['theme']) ? $options['theme'] : ''; ?>"
-  id="popup-<?php echo $spu_id; ?>"
+  id="spu-<?php echo $spu_id; ?>"
   data-reveal
   data-overlay="<?php echo $options['overlay'] ? 'true' : 'false'; ?>"
   data-close-on-click="<?php echo $options['close_on_click'] ? 'true' : 'false'; ?>"
@@ -25,8 +28,12 @@
   data-spu-close-cookie="<?php echo $options['close-cookie']; ?>"
   data-spu-test-mode="<?php echo $options['test_mode']; ?>"
   data-spu-conversion-close="<?php echo $options['conversion_close']; ?>"
+  data-event-category="<?php echo $options['event_category']; ?>"
+  data-event-label="<?php echo $options['event_label']; ?>"
 >
-  <?php echo $content; ?>
+  <div class="reveal__content">
+    <?php echo $content; ?>
+  </div>
 
   <button class="close-button" data-close aria-label="<?php _e('Close popup', 'popup-extended'); ?>" type="button">
     <span aria-hidden="true">&times;</span>
