@@ -239,12 +239,10 @@ class PopupsExtended
         wp_enqueue_media();
 
         $types = apply_filters('popups-extended/types', []);
-        $themes = apply_filters('popups-extended/themes', [
-            'dark' => __('Dark', 'popups-extended'),
-            'liht' => __('Light', 'popups-extended'),
-        ]);
+        $themes = apply_filters('popups-extended/themes', []);
         $sizes = apply_filters('popups-extended/sizes', [
             '' => __('Default', 'popups-extended'),
+            'tiny' => __('Tiny', 'popups-extended'),
             'small' => __('Small', 'popups-extended'),
             'medium' => __('Medium', 'popups-extended'),
             'large' => __('Large', 'popups-extended'),
