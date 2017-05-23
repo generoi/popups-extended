@@ -137,6 +137,28 @@ class PopupsExtended
         die();
     }
 
+    /**
+     * Retrieve the original post id across languages.
+     */
+    function get_original_post_id($post_id) {
+        global $sitepress;
+
+        if (isset($sitepress)) {
+            $trid = $sitepress->get_element_trid($post_id, 'post_spucpt');
+            $translations = $sitepress->get_element_translations($trid, 'post_spucpt');
+            if (!empty($translations)) {
+                foreach ($translations as $lang => $translation) {
+                    if ($translation->original == true) {
+                        return $translation->element_id;
+                        break;
+                    }
+                }
+            }
+        }
+        // @todo polylang.
+        return $post_id;
+    }
+
     function print_boxes() {
         $spu_matches = SocialPopup::get_instance()->check_for_matches();
         // if we have matches continue
@@ -150,6 +172,8 @@ class PopupsExtended
                 $helper = new Spu_Helper;
                 $options = $helper->get_box_options($spu_id);
                 $content = apply_filters('spu/popup/content', $post->post_content, $post);
+                // Normalize ID's to the original language.
+                $spu_id = $this->get_original_post_id($spu_id);
 
                 $templates = apply_filters('spu_template_hierarchy', [
                     'popups/popup--' . $spu_id . '.twig',
