@@ -175,12 +175,16 @@ class PopupsExtended
                 // Normalize ID's to the original language.
                 $spu_id = $this->get_original_post_id($spu_id);
 
-                $templates = apply_filters('spu_template_hierarchy', [
-                    'popups/popup--' . $spu_id . '.twig',
-                    'popups/popup-' . $spu_id . '.php',
-                    'popups/popup.twig',
-                    'popups/popup.php',
-                ]);
+                $templates = [
+                    'popup--' . $spu_id . '.twig',
+                    'popup-' . $spu_id . '.php',
+                    'popup.twig',
+                    'popup.php',
+                ];
+                $templates = apply_filters('spu_template_hierarchy', array_merge($templates, array_map(function ($template) {
+                  return 'popups/' . $template;
+                }, $templates)));
+
                 $template = locate_template($templates);
                 $template = apply_filters('spu_template', $template);
                 // Template was found.
