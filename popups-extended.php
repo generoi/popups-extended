@@ -196,8 +196,9 @@ class PopupsExtended
                         // If the path is absolute, use the relative path from the theme.
                         $template = str_replace(TEMPLATEPATH, '', $template);
 
-                        $context['id'] = $spu_id;
+                        $context['spu_id'] = $spu_id;
                         $context['post'] = Timber\PostGetter::get_post($post);
+                        $context['content'] = $content;
                         $context['options'] = $helper->get_box_options($spu_id);
                         Timber::render($template, $context);
                     }
