@@ -63,6 +63,9 @@ class PopupsExtended
         add_filter('spu/metaboxes/trigger_options', [$this, 'metabox_trigger_options']);
         add_filter('spu/metaboxes/before_display_options', [$this, 'metabox_extra_before']);
         add_filter('spu/metaboxes/after_display_options', [$this, 'metabox_extra_after']);
+
+        // Remove some notices.
+        remove_action('admin_notices', [$spu, 'rate_plugin']);
     }
 
     public function add_tinymce_plugin($plugins) {
