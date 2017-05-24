@@ -1,15 +1,25 @@
 .spu-box {
   &.reveal {
     outline: none;
+
+    &--centered,
+    &--top,
+    &--bottom,
+    &--top-left,
+    &--top-right,
+    &--bottom-left,
+    &--bottom-right { position: absolute; }
+
     // Positioning
-    &--centered { top: 50% !important; transform: translateY(-50%); }
-    &--top { top: 0 !important; }
-    &--bottom { top: auto !important; bottom: 0; }
+    &--centered { top: 50% !important; left: 50% !important; transform: translate(-50%, -50%); }
+    &--top { top: 0 !important; left: 50% !important; transform: translate(-50%, 0); }
+    &--bottom { top: auto !important; bottom: 0; left: 50% !important; transform: translate(-50%, 0); }
     &--top-left { top: 0 !important; left: 0 !important; }
     &--top-right { top: 0 !important; left: auto !important; right: 0; }
-    &--bottom-left { top: auto !important; left: 0 !important; }
-    &--bottom-right { top: auto !important; left: auto !important; right: 0; }
-    &.full { top: 0 !important; transform: translateY(0); }
+    &--bottom-left { top: auto !important; bottom: 0; left: 0 !important; }
+    &--bottom-right { top: auto !important; bottom: 0; left: auto !important; right: 0; }
+
+    &.full { top: 0 !important; left: 0 !important; transform: translate(0, 0); }
   }
 
   // Vertically center content if container is stretched..
