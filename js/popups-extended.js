@@ -50,6 +50,8 @@
     // Direct link.
     $(document).on('click', '.spu-open-' + this.spuId, function (e) {
       self.openPopup();
+      e.preventDefault();
+      return false;
     });
 
 
