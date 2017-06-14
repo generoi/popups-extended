@@ -187,6 +187,7 @@
       var action = $this.prop('action');
       if (action) {
         action = action.replace('?spu_action=spu_load', '?');
+        action = action.replace('?&', '?');
         $this.attr('action', action);
       }
     });
