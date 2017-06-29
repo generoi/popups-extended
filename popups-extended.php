@@ -31,6 +31,10 @@ class PopupsExtended
     }
 
     public function init() {
+        // Disable when tailoring.
+        if (function_exists('tailor') && tailor()->is_tailoring()) {
+            return;
+        }
         $this->info['wpml_lang'] = defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : '';
         $this->spu_settings = apply_filters('spu/settings_page/opts', get_option('spu_settings'));
 
@@ -38,6 +42,7 @@ class PopupsExtended
         // Remove core actions.
         remove_action('init', [$spu, 'register_spu_ajax'], 11);
         remove_action('wp_footer', [$spu, 'print_boxes']);
+
         // Add our own actions using our own template.
         add_action('init', [$this, 'register_ajax'], 11);
         if (empty($this->spu_settings['ajax_mode'])) {
