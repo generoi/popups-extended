@@ -371,7 +371,7 @@ class PopupsExtended
 
     public static function isPostPage() {
         $current_screen = get_current_screen();
-        if ($current_screen->post_type == 'spucpt' && $current_screen->base == 'post') {
+        if (isset($curren_screen->post_type) && $current_screen->post_type == 'spucpt' && $current_screen->base == 'post') {
             return true;
         }
         return false;
