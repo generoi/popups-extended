@@ -363,6 +363,7 @@ class PopupsExtended
         // Can't remove this as JavaScript depend on the elements existing,
         // hide with CSS instead.
         // remove_meta_box('spu-appearance', 'spucpt', 'normal');
+        remove_meta_box('spu-video', 'spucpt', 'normal');
         remove_meta_box('spu-premium', 'spucpt', 'normal');
         remove_meta_box('spu-support', 'spucpt', 'side');
         remove_meta_box('spu-donate', 'spucpt', 'side');
@@ -371,7 +372,7 @@ class PopupsExtended
 
     public static function isPostPage() {
         $current_screen = get_current_screen();
-        if (isset($curren_screen->post_type) && $current_screen->post_type == 'spucpt' && $current_screen->base == 'post') {
+        if (isset($current_screen->post_type) && $current_screen->post_type == 'spucpt' && $current_screen->base == 'post') {
             return true;
         }
         return false;
