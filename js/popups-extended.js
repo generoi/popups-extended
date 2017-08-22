@@ -1,6 +1,7 @@
 (function ($) {
 
   var hash = window.location.hash;
+  var $document = $(document);
 
   function PopupsExtended(el) {
     var $popup = $(el);
@@ -199,13 +200,15 @@
     });
   }
 
-  $(document).on('ready', function () {
+  $document.on('ready', function () {
     if (spuvar.ajax_mode) {
       requestAjaxPopups(function (response) {
         $('body').append(response);
+        $document.trigger('popupsExtended:load');
         $('.spu-box').imagesLoaded(function() {
           init();
           reloadForms();
+          $document.trigger('popupsExtended:loaded');
         });
       });
     }
