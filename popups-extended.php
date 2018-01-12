@@ -396,7 +396,9 @@ class PopupsExtended
         echo '<style>
             tr.powered_link,
             .spu-border-width, .spu-text-color, .spu-box-width,
-            .spu-border-color, .spu-bg-opacity { display: none; }
+            .spu-border-color, .spu-bg-opacity,
+            #spu-appearance .spu-admin-options h3:not(:last-of-type),
+            #spu-appearance .spu-admin-options .form-table:not(:last-of-type) { display: none; }
         </style>';
     }
 
