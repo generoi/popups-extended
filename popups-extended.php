@@ -53,6 +53,7 @@ class PopupsExtended
         add_action('admin_head', [$this, 'admin_head']);
         add_action('admin_footer', [$this, 'admin_footer']);
         add_action('do_meta_boxes', [$this, 'hide_meta_boxes']);
+        add_filter('wp-hero/visible/post_type', [$this, 'disable_wp_hero'], 10, 2);
 
         // TinyMCE
         add_filter('mce_external_plugins', [$this, 'add_tinymce_plugin']);
@@ -368,6 +369,13 @@ class PopupsExtended
         remove_meta_box('spu-support', 'spucpt', 'side');
         remove_meta_box('spu-donate', 'spucpt', 'side');
         remove_meta_box('spu-links', 'spucpt', 'side');
+    }
+
+    public function disable_wp_hero($match, $post_type) {
+        if ($post_type == 'spucpt') {
+            return false;
+        }
+        return $match;
     }
 
     public static function isPostPage() {
