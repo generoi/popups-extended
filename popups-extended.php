@@ -192,6 +192,9 @@ class PopupsExtended
                   return 'popups/' . $template;
                 }, $templates)));
 
+                // Support for wp-timber-extended
+                $templates = apply_filters('timber_template_hierarchy', $templates);
+
                 $template = locate_template($templates);
                 $template = apply_filters('spu_template', $template);
                 // Template was found.
