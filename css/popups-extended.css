@@ -18,7 +18,7 @@
   outline: none;
 }
 
-.spu-box.reveal--centered, .spu-box.reveal--top, .spu-box.reveal--bottom, .spu-box.reveal--top-left, .spu-box.reveal--top-right, .spu-box.reveal--bottom-left, .spu-box.reveal--bottom-right {
+.spu-box.reveal--centered, .spu-box.reveal--top, .spu-box.reveal--bottom, .spu-box.reveal--bottom-bar, .spu-box.reveal--top-bar, .spu-box.reveal--top-left, .spu-box.reveal--top-right, .spu-box.reveal--bottom-left, .spu-box.reveal--bottom-right {
   position: absolute;
 }
 
@@ -69,6 +69,25 @@
   bottom: 0;
   left: auto !important;
   right: 0;
+}
+
+.spu-box.reveal--bottom-bar {
+  top: auto !important;
+  bottom: 0;
+}
+
+.spu-box.reveal--top-bar {
+  top: 0 !important;
+  bottom: auto !important;
+}
+
+.spu-box.reveal--bottom-bar, .spu-box.reveal--top-bar {
+  left: 0;
+  right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  max-width: none;
 }
 
 .spu-box.reveal.full {
