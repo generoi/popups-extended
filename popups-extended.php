@@ -139,6 +139,13 @@ class PopupsExtended
         ob_clean();
         // Force 200.
         http_response_code(200);
+
+        global $polylang;
+
+        if (isset($polylang) && !empty($_REQUEST['lang'])) {
+            $polylang->curlang = $polylang->model->get_language($_REQUEST['lang']);
+        }
+
         // Print the popup code.
         $this->print_boxes();
         die();
@@ -148,7 +155,7 @@ class PopupsExtended
      * Retrieve the original post id across languages.
      */
     function get_original_post_id($post_id) {
-        global $sitepress;
+        global $sitepress, $polylang;
 
         if (isset($sitepress)) {
             $trid = $sitepress->get_element_trid($post_id, 'post_spucpt');
@@ -162,7 +169,16 @@ class PopupsExtended
                 }
             }
         }
-        // @todo polylang.
+
+        if (isset($polylang)) {
+            $translations = $polylang->model->post->get_translations($post_id);
+            if (!empty($translations)) {
+                // polylang doesnt have parent translation logic, go chronologically.
+                asort($translations);
+                $post_id = reset($translations);
+            }
+
+        }
         return $post_id;
     }
 
