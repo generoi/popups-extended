@@ -3,7 +3,7 @@
 Plugin Name:        Popups Extended
 Plugin URI:         http://genero.fi
 Description:        Extensions to the Popup plugin (SPU)
-Version:            1.0.0-alpha.4
+Version:            1.0.0-alpha.7
 Author:             Genero
 Author URI:         http://genero.fi/
 License:            MIT License
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 
 class PopupsExtended
 {
-    const VERSION = '1.0.0-alpha.4';
+    const VERSION = '1.0.0-alpha.7';
 
     protected $spu_settings = [];
     protected $info = [];
