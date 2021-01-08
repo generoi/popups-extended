@@ -75,7 +75,7 @@
         return;
       }
       // @see https://github.com/zurb/foundation-sites/issues/10626
-      $('body').removeClass('is-reveal-open');
+      $('body, html').removeClass('is-reveal-open');
       // The conversion process already tracked
       if (!self.isConverted) {
         self.setCookie();
