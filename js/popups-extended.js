@@ -202,7 +202,7 @@
     });
   }
 
-  $document.on('ready', function () {
+  $document.ready(function () {
     if (spuvar.ajax_mode) {
       requestAjaxPopups(function (response) {
         $('body').append(response);
