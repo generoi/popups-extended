@@ -35,7 +35,6 @@ class PopupsExtended
         if (function_exists('tailor') && tailor()->is_tailoring()) {
             return;
         }
-        $this->registerUpdateChecker();
         $this->info['wpml_lang'] = defined('ICL_LANGUAGE_CODE') ? ICL_LANGUAGE_CODE : '';
         $this->spu_settings = apply_filters('spu/settings_page/opts', get_option('spu_settings'));
 
@@ -466,17 +465,6 @@ class PopupsExtended
             wp_die('Sorry, but this plugin requires the Popups plugin to be installed and active. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
         }
     }
-
-    public function registerUpdateChecker() {
-        $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-            'https://github.com/generoi/popups-extended/',
-            __FILE__,
-            'popups-extended'
-        );
-    }
-}
-if (file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
-    require_once $composer;
 }
 
 register_activation_hook(__FILE__, [PopupsExtended::get_instance(), 'activate']);
