@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 
 class PopupsExtended
 {
-    const VERSION = '1.0.0-alpha.10';
+    const VERSION = '1.0.0-alpha.11';
 
     protected $spu_settings = [];
     protected $info = [];
