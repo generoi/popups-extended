@@ -168,7 +168,7 @@
       url: spuvar.ajax_mode_url,
       dataType: 'html',
       cache: false,
-      type: 'POST',
+      type: 'GET',
       timeout: 30000,
       data: {
         pid: spuvar.pid,
