@@ -136,6 +136,7 @@ class PopupsExtended
         define('DOING_AJAX', TRUE);
         // Remove theme output
         ob_clean();
+        do_action('spu/ajax/load');
         // Force 200.
         http_response_code(200);
 
