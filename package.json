@@ -7,7 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "Bounceback": "https://github.com/AMKohn/bounceback.git",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-sass": "^3.1.0",
     "imagesloaded": "^4.1.2",
